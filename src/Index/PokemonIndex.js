@@ -12,14 +12,15 @@ const PokemonIndex = props => {
     //         });
     // });
 
-    console.log(pokemon);
+    console.log(props.pokemon);
     
-    return <div>
-        <ul>
+    return (!props.pokemon) ? null :  <div>
+        {/* <ul>
             {props.pokemon.map(poke => { 
                return <li>{poke.name}</li>
             })}
-        </ul>
+        </ul> */}
+        {props.pokemon.name}
     </div>
 };
 

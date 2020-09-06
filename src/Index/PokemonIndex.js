@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PokemonIndexItem from "./PokemonIndexItem";
+import "../reset.css";
+import "./PokemonIndex.css";
 
 const PokemonIndex = props => { 
     const [pokemon, setPokemon] = useState(null); 
@@ -17,13 +19,13 @@ const PokemonIndex = props => {
 
     return (!pokemon) ? null :  
         <div>
-            <ul>
+            <ul className="grid">
                 {pokemon.results.map(poke => { 
                     return <PokemonIndexItem key={poke.name} url={poke.url} />
                 })}
             </ul>
-            <button onClick={() => setUrl(pokemon.next)}>Next</button>
-            <button onClick={() => setUrl(pokemon.previous)}>Previous</button>
+            {pokemon.previous ? <button onClick={() => setUrl(pokemon.previous)}>Previous</button> : null} 
+            { pokemon.next ? <button onClick={() => setUrl(pokemon.next)}>Next</button> : null } 
         </div>
 };
 

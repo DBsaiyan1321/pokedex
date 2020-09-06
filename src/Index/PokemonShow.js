@@ -1,25 +1,28 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
+
+const capitalize = string => {
+    if (typeof string != "string") return "";
+
+    return string[0].toUpperCase() + string.slice(1);
+}
 
 const PokemonShow = props => { 
-    const [pokemon, setPokemon] = useState([]);
+    const [pokemon, setPokemon] = useState(null);
 
-    // debugger
-    console.log(props.pokemon)
+    useEffect(() => { 
+        if (!pokemon) { 
+            fetch(`https://pokeapi.co/api/v2/pokemon/${props.match.params.id}/`)
+                .then(res => res.json())
+                .then(json => setPokemon(json))
+        }
+    })
 
-    return (!props.pokemon) ? null :
+    console.log(pokemon)
+
+    return (!pokemon) ? null :
         <div>
-            {/* <ul>
-                {props.pokemon.map(poke => { 
-                return <li>{poke.name}</li>
-                })}
-            </ul> */}
-            <h1>{props.pokemon.name} <span>#{props.pokemon.id}</span></h1>
-            <img src={props.pokemon.sprites.other.dream_world.front_default} alt={`${props.pokemon.name} Sprite`} />
-            <ul>
-                {props.pokemon.types.map(type => {
-                    return <li key={type.slot}>{type.type.name}</li>
-                })}
-            </ul>
+            <h1>{capitalize(pokemon.name)} <span>#{pokemon.id}</span></h1> 
+            <img src={pokemon.sprites.other["official-artwork"].front_default} alt={`${pokemon.name} Sprite`} />
         </div>
 };
 

@@ -5,6 +5,11 @@
     background-color: #ececec;
     margin: 1em;
     border-radius: 10px;
+    transition: 250ms ease; 
+}
+
+.pokemon-index-item:hover { 
+    transform: translateY(-5%);
 }
 
 .pokemon-index-item img { 

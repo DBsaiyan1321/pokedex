@@ -1,35 +1,25 @@
 import React, { useState, useEffect } from "react";
+import PokemonIndexItem from "./PokemonIndexItem";
 
 const PokemonIndex = props => { 
     const [pokemon, setPokemon] = useState(null); 
-
-    // useEffect(() => {
-    //     fetch("https://pokeapi.co/api/v2/pokemon")
-    //         .then(res => res.json())
-    //         .then(json => {
-    //             console.log(json)
-    //             setPokemon(json.results)
-    //         });
-    // });
     const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/")
 
     useEffect(() => {
         fetch(url)
             .then(res => res.json())
             .then(json => {
-                // console.log(json)
                 setPokemon(json)
             });
     }, [url]);
 
     // debugger
-    console.log(pokemon)
 
     return (!pokemon) ? null :  
         <div>
             <ul>
                 {pokemon.results.map(poke => { 
-                return <li>{poke.name}</li>
+                    return <PokemonIndexItem key={poke.name} url={poke.url} />
                 })}
             </ul>
             <button onClick={() => setUrl(pokemon.next)}>Next</button>
